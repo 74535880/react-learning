@@ -1,0 +1,20 @@
+div {
+  transition: all ease-in-out;
+}
+.exited {
+  font-size: 14px;
+  background: #ccc;
+}
+.entering {
+  font-size: 16px;
+  background: #008c8c;
+}
+
+.entered {
+  font-size: 18px;
+  background: #8c8c8c;
+}
+.exiting {
+  font-size: 20px;
+  background: #f40;
+}
