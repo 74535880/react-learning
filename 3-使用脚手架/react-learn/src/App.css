@@ -1,20 +1,13 @@
-div {
-  transition: all ease-in-out;
+.exit {
+  transform-origin: left top;
 }
-.exited {
-  font-size: 14px;
-  background: #ccc;
-}
-.entering {
-  font-size: 16px;
-  background: #008c8c;
+/* 说明上面的会导致回流，重新计算元素的尺寸和位置，如果写在一起，变换还是会依照原来的位置进行变换。 */
+.exit-active {
+  transition: 2s;
+  transform: scale(0);
 }
 
-.entered {
-  font-size: 18px;
-  background: #8c8c8c;
-}
-.exiting {
-  font-size: 20px;
-  background: #f40;
-}
+/*1. 点击删除：添加exit类名，
+  2. 然后立马又添加exit-active类名
+  3. 一段时间后，移除dom */
+  

@@ -1,51 +1,46 @@
 import React, { useState } from "react";
-import { Transition } from "react-transition-group";
+import uuid from "uuid";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 import "./App.css";
-const duration = 700;
+const App = () => {
+  const [tasks, setTasks] = useState([
+    {
+      id: uuid(),
+      name: "任务1"
+    },
+    {
+      id: uuid(),
+      name: "任务2"
+    }
+  ]);
 
-let a = 0;
-function App() {
-  const [inProp, setInProp] = useState(true);
   return (
     <div>
-      <Transition
-        in={inProp}
-        timeout={duration}
-        mountOnEnter={true}
-        unmountOnExit={true}
-        appear={true}
-        addEndListener={(node, done) => {
-          console.log(node, done);
-          done();
-          node.addEventListener("transitionend", done, false);
-        }}
-      >
-        {state => {
-          a++;
-          console.log(a);
-          console.log(state);
-          return (
-            <div
-              className={state}
-              //   style={{
-              //     ...defaultStyle,
-              //     ...transitionStyles[state]
-              //   }}
-            >
-              I'm a fade Transition!，{a}
-              <h1 className={state}></h1>
+      <TransitionGroup component="ul" className="abc">
+        {tasks.map(t => (
+          <CSSTransition key={t.id} timeout={2000}>
+            <div>
+              {t.name}
+              <button
+                onClick={() => {
+                  setTasks(tasks.filter(it => it.id !== t.id));
+                }}
+              >
+                删除
+              </button>
             </div>
-          );
-        }}
-      </Transition>
+          </CSSTransition>
+        ))}
+      </TransitionGroup>
       <button
         onClick={() => {
-          setInProp(!inProp);
+          setTasks([...tasks, { id: uuid(), name: `任务` }]);
         }}
       >
-        Click to Enter
+        添加一个任务
       </button>
     </div>
   );
-}
+};
+
 export default App;
