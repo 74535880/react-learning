@@ -17,13 +17,14 @@ function reducer(state, action) {
     return state; //如果action.type是无效的，数据不变。
   }
 }
-// 1. 创建store
-window.store = createStore(reducer, 10);
-// 2. 创建一个action
-const action = {
-  type: "increase"
-};
-console.log(window.store.getState()); //可以获取当前的状态。10
-// 3. 分发action,会把reducer的返回值作为store的新状态。
-window.store.dispatch(action);
-console.log(window.store.getState()); //可以获取当前的状态。11
+
+const store = createStore(reducer, 10);
+console.log(store);
+const unListen = store.subscribe(() => {
+  console.log(`状态改变了`);
+});
+store.subscribe(() => {
+  console.log(`状态改变了`);
+});
+store.dispatch({ type: "increase" });
+unListen();
